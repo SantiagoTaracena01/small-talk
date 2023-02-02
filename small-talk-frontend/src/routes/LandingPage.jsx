@@ -5,15 +5,12 @@ import '../styles/landing-page.sass'
 const LandingPage = () => (
   <main>
     <div className="icon-container">
-      <img
-        src={SmallTalkLogo}
-        alt="Small Talk Icon"
-      />
+      <img src={SmallTalkLogo} alt="Small Talk Icon" />
       <h1>Small Talk</h1>
     </div>
     <p className="p-intro">
-      Small Talk is a chat application that mainly focus on giving a simple 
-      and intuitive experience to our users withoutsaturating their view with 
+      Small Talk is a chat application that mainly focus on giving a simple and
+      intuitive experience to our users withoutsaturating their view with
       unnecessary features and confusing options.
     </p>
     <button>Log In</button>
