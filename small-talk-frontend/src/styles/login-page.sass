@@ -1,181 +1,98 @@
+@import './main'
 
-:root
-  --main-color: #b50013
-  --secondary-color: #FFFFFF
-  --accent-color-black: #000000
-  --accent-color-gray: #BFC9CA
-  --accent-color-dark-gray: #515A5A
-  --accent-color-whiter: #fafafa
-  --accent-color-dark-blue: #003250
-  --titles-important: 'Poppins', sans-serif
-  --subtitles: 'Merriweather Sans', sans-serif
-  --text: 'Hind Madurai', sans-serif
-
-.login
+main
+  width: 100%
   height: 100vh
   display: flex
-  gap: 40px
-  flex-direction: column
   align-items: center
   justify-content: center
-  text-align: center
   user-select: none
   animation: fadeIn 1.5s ease-in-out
 
-.login-container
-  width: 1200px
-  height: 600px 
-  background-color: var(--secondary-color) 
-  display: flex 
-  justify-content: center 
-  align-items: center 
-  box-shadow: 0 0px 50px rgb(0, 0, 0, 0.35) 
-  border-radius: 50px 
-  flex-direction: column 
-  width: 50% 
-  min-width: 500px 
+  .login-container
+    width: 50%
+    height: 70%
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    gap: 30px
+    box-shadow: 0 0 10px $box-shadow-color
+    border-radius: 50px
+    min-width: 500px
 
-.login-form-info 
-  background-color: var(--secondary-color) 
-  width: 50% 
-  height: auto 
-  padding: 50px 
-  display: flex 
-  flex-direction: column 
-  align-items: center 
-  justify-content: center 
-  border-radius: 50px 
-  gap: 10px 
-  width: 100% 
+    .login-icon-container
+      display: flex
+      gap: 0px
+      flex-direction: column
+      align-items: center
+      justify-content: center
+      text-align: center
 
-  & > img 
-    height: 120px 
-    margin-bottom: 20px 
+      img
+        height: 120px
+      
+      h1
+        color: $primary-color
+        font-family: $titles
+        font-size: 2.5rem
 
-.lf-titulo 
-  font-family: 'Poppins', sans-serif 
-  margin: 10px 
-  font-size: 2.5rem 
-  font-weight: bold 
-  color: var(--accent-color-black) 
+    .login-form
+      width: 30%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      gap: 10px
 
-input 
-  font-family: 'Hind Madurai', sans-serif 
-  font-weight: medium 
-  font-size: 16px 
-  width: 60% 
-  padding: 10px 0 
-  color: var(--accent-color-black) 
-  margin: 10px 
-  border: none 
-  border-bottom: 0.125rem solid var(--accent-color-black) 
-  outline: none 
-  background: transparent
+      input
+        width: 100%
+        font-family: $paragraphs
+        font-size: 1rem
+        margin: 0 auto
+        padding: 5px 0
+        color: $black
+        border: none
+        border-bottom: 2px solid $black
 
-  &::placeholder 
-    color: var(--accent-color-black) 
+        &:focus-visible
+          outline: none
 
-  &:focus 
-    color: var(--accent-color-black)
+    button
+      width: 80%
+      max-width: 125px
+      height: 50px
+      border: none
+      border-radius: 10px
+      background-color: $primary-color
+      color: $white
+      font-family: $paragraphs
+      font-size: 1.25rem
+      cursor: pointer
 
-.form-btn-is 
-  background-color: var(--accent-color-dark-blue) 
-  color: var(--accent-color-whiter) 
-  height: 40px 
-  border-radius: 5px 
-  justify-content: center
-  border: none
-  width: 20%
-  margin: 10px
-  font-family: 'Hind Madurai', sans-serif
-  font-weight: bold
-  font-size: 16px
-  cursor: pointer
+      &:hover
+        background-color: $primary-color-light
+      
+      & > a
+        color: $white
+        text-decoration: none
 
-  &:hover 
-    background-color: var(--accent-color-gray) 
+    p
+      width: 80%
+      max-width: 600px
+      color: $black
+      font-family: $paragraphs
+      font-size: 1rem
 
-button 
-  & > img 
-    width: 100% 
-    height: 100% 
-    outline: none 
-.login-span 
-  width: 100% 
-  text-align: center 
-  font-family: var(--subtitles) 
-  color: var(--accent-color-black) 
-.register-span 
-  width: 100% 
-  text-align: center 
-  font-family: var(--subtitles) 
-  color: var(--accent-color-black) 
-.link-button 
-  font-family: var(--subtitles) 
-  font-size: 16px 
-  background: none 
-  outline: none 
-  border: none 
-  color: var(--accent-color-black) 
-  text-decoration: underline 
-  cursor: pointer 
-  &:hover 
-    color: var(--accent-color-gray) 
-.terms-popup 
-  top: 0 
-  left: 0 
-  position: absolute 
-  width: 100vw 
-  height: 100vh 
-  background-color: rgba(0, 0, 0, 0.75) 
-  display: flex 
-  justify-content: center 
-  align-items: center 
-.terms-popup-menu 
-  width: 40% 
-  height: 85% 
-  background-color: rgb(255, 255, 255) 
-  display: flex 
-  flex-direction: column 
-  border-radius: 30px 
-  box-shadow: 0px 0px 50px rgba(0, 0, 0, 0.75) 
-.terms-title 
-  width: 100% 
-  height: 15% 
-  display: flex 
-  justify-content: center 
-  align-items: center 
-  & > h1 
-    color: var(--secondary-color) 
-    font-weight: bold 
-.terms-content 
-  width: 100% 
-  height: 70% 
-  display: flex 
-  justify-content: center 
-  align-items: center 
-  padding: 0px 30px 
-  color: var(--secondary-color) 
-  overflow-y: scroll 
-  text-align: justify 
-.terms-close-button 
-  width: 100% 
-  height: 15% 
-  display: flex 
-  justify-content: center 
-  align-items: center 
-  & > button 
-    width: 30% 
-    height: 40% 
-    color: white 
-    background-color: var(--secondary-color) 
-    border-radius: 10px 
-    border: none 
-    font-family: var(--subtitles) 
-    font-size: 16px 
-    cursor: pointer 
-    &:hover 
-      color: rgb(200, 200, 200) 
+      & > a
+        color: $primary-color
+        font-weight: bold
+        cursor: pointer
+        text-decoration: underline
+
+        &:hover
+          color: $primary-color-light
+
 @keyframes fadeIn
   from
     opacity: 0
