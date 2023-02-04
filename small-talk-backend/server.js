@@ -18,7 +18,10 @@ const app = express()
 app.use(cors())
 
 app.get('/', (req, res) => {
-  res.send('Hello World!')
+  res.json({
+    message: 'Welcome to Small Talk API',
+    status: 'OK',
+  })
 })
 
 app.use(express.json())
@@ -26,6 +29,4 @@ app.use(express.json())
 const usersRouter = require('./routes/users')
 app.use('/users', usersRouter)
 
-app.listen(process.env.API_PORT || 4000, () =>
-  console.log('Server is running...'),
-)
+app.listen(process.env.API_PORT || 4000, () => console.log('Server is running.'))
