@@ -7,7 +7,7 @@ const LoginPage = () => (
     <div className="login-container">
       <div className="login-form-info">
         <img src={SmallTalkLogo} alt="logotipo" />
-        <h1 className="lf-titulo">{"Welcome!!!"}</h1>
+        <h1 className="lf-titulo">Welcome to Small Talk</h1>
         <input type="Email" id="Email" name="Email" placeholder="Email" required/>
         <input type="password" id="password" name="password" placeholder="Password" required/>
         <button type="button" className="form-btn-is">Log in</button>
