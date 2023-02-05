@@ -5,8 +5,8 @@ import '../styles/login-page.sass'
 
 const LoginPage = () => {
   const [users, setUsers] = useState()
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+  const [username, setUsername] = useState()
+  const [password, setPassword] = useState()
 
   const navigate = useNavigate()
 
