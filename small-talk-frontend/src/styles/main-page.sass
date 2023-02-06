@@ -1,58 +1,42 @@
 @import './main'
 
-main
+.main-page
   width: 100%
   height: 100vh
-  display: flex
-  align-items: center
-  justify-content: center
-  user-select: none
-  animation: fadeIn 1.5s ease-in-out
-  background-color: $white
 
-  .colored-top
-    background-color: $primary-color-background
-    height: 15vh
+  header
     width: 100%
-
-  .chatbox-container
-    background-color: $white
-    top: 20px
-    left: 50px
-    right: 50px
-    bottom: 20px
-    border-radius: 5px
-    box-shadow: 0 0 10px $box-shadow-color
+    height: 100px
     display: flex
-    flex-direction: row
-    .conversations
+    justify-content: center
+    align-items: center
+
+    .main-page-profile-color
+      width: 80px
+      height: 80px
+      border-radius: 50%
+      margin: 10px
+
+  section
+    width: 100%
+    height: calc(100% - 100px)
+    background-color: green
+
+    aside
       width: 30%
-      background-color: $primary-color-background
+      min-width: 350px
+      height: 100%
+      background-color: red
 
-      .userInfo
-        display: flex
-        flex-direction: row
+      .chat-bubble
+        width: 100%
+        height: 100px
+        border: 1px solid black
+        background-color: white
 
-        .usernName
-          font-family: $titles
-          color: $white
-          width: 70%
-        
-        .newChat
-          width: 30%
-          display: inline-flex
-          align-items: center
-          justify-content: center
-          padding: 2px
-          border: 2px solid $primary-color-light
-          cursor: pointer
-
-          .newChat-img
-            width: 100%
-            height: 100%
-            background-repeat: no-repeat
-            object-fit: cover
-        
-    .chatbox
-      width: 70%
-      background-color: $white
+        .profile-color
+          width: 80px
+          height: 80px
+          border-radius: 50%
+          margin: 10px
+          background-color: blue

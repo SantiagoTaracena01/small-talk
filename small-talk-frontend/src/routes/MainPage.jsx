@@ -1,73 +1,66 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate} from 'react-router-dom'
-import SmallTalkLogo from '../assets/images/small-talk-logo.png'
-import Chatbox from '../components/chatbox.jsx'
+import React, { useContext, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import ChatSpan from './components/ChatSpan'
+import { UserContext } from '../providers/UserProvider'
 import '../styles/main-page.sass'
-import ChatGrid from '../components/chatInGrid.jsx'
 
-/*
-const handleGetChats = (setAllChats) => {
-  const requestOptions = {
-    method: 'GET'
-    redirect: 'follow'
+const chats = [
+  {
+    id: 1,
+    profileColor: '#FFBD44',
+    receptor: 'Marco Jurado',
+    lastMessage: 'Hola, ¿cómo estás?',
+    lastMessageTime: '23:45',
+    unread: true
+  },
+  {
+    id: 2,
+    profileColor: '#C2F6FF',
+    receptor: 'Gabriel Vicente',
+    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
+    lastMessageTime: '23:36',
+    unread: true
   }
-
-  fetch
-}
-*/
+]
 
 const MainPage = () => {
-  const [users, setUsers] = useState()
-  const [username, setUsername] = useState()
-  const [password, setPassword] = useState()
-  const [idSelectedChat, setIdSelectedChat] = useState()
-  const [selectedChat, setSelectedChat] = useState()
-  const [allChats, setAllChats] = useState()
-  const navigate = useNavigate()
+  const { user } = useContext(UserContext)
 
-  // area para handles
   useEffect(() => {
-    try{
-      handleGetChats(setAllChats)
-    } catch {
-      console.log('Error obteniendo chats')
+    const getChats = async () => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}`)
+      const data = await response.json()
+      console.log(data)
     }
+    getChats()
   }, [])
 
-
-  return(
-    <main>
-      <div className='colored-top' />
-      <div className='chatbox-container'>
-        <div className='Conversations'>
-          <div className='userInfo'>
-            <div className='usernName'>
-              {username}
-            </div>
-            <button className='newChat'>
-              <img src='https://static.thenounproject.com/png/1970202-200.png' alt='newchat' className='newChat-img'/>
-            </button>
-          </div>
-          <div className='active-chats'>
-            {
-              allChats
-              && allChats.map((chat,index) => (
-                <ChatGrid
-                  chatId={chat.chatid}
-                  sender={chat.nombre}
-                  lastTime={chat.tiempo}
-                  setIdSelectedChat={setIdSelectedChat}
-                  setSelectedChat={setSelectedChat}
-                />
-              ))
-            }
-          </div>
-        </div>
-        <Chatbox 
-          chatId={idSelectedChat}
-        />
-      </div>
-    </main>
+  return (
+    <div className="main-page">
+      <header>
+        <Link to="/profile">
+          <div
+            className="main-page-profile-color"
+            style={{ backgroundColor: '#2286DD' }}
+          />
+        </Link>
+      </header>
+      <section>
+        <aside>
+          {chats.map((chat) => (
+            <ChatSpan 
+              key={chat.id}
+              onClick={() => console.log('Chat clicked')}
+              profileColor={chat.profileColor}
+              receptor={chat.receptor}
+              lastMessage={chat.lastMessage}
+              lastMessageTime={chat.lastMessageTime}
+              unread={chat.unread}
+            />
+          ))}
+        </aside>
+      </section>
+    </div>
   )
 }
 
