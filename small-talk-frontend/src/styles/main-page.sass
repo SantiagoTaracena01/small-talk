@@ -1,0 +1,60 @@
+@import './main'
+
+main
+  width: 100%
+  height: 100vh
+  display: flex
+  align-items: center
+  justify-content: center
+  user-select: none
+  animation: fadeIn 1.5s ease-in-out
+  background-color: $greyish
+
+  .colored-top
+    background-color: $primary-color-background
+    height: 15vh
+    width: 100%
+
+  
+
+  .chatbox-container
+    background-color: $white
+    top: 20px
+    left: 50px
+    right: 50px
+    bottom: 20px
+    border-radius: 5px
+    box-shadow: 0 0 10px $box-shadow-color
+    display: flex
+    flex-direction: row
+    .conversations
+      width: 30%
+      background-color: $primary-color-background
+
+      .userInfo
+        display: flex
+        flex-direction: row
+
+        .usernName
+          font-family: $titles
+          color: $white
+          width: 70%
+        
+        .newChat
+          width: 30%
+          display: inline-flex
+          align-items: center
+          justify-content: center
+          padding: 2px
+          border: 2px solid $primary-color-light
+          cursor: pointer
+
+          .newChat-img
+            width: 100%
+            height: 100%
+            background-repeat: no-repeat
+            object-fit: cover
+        
+    .chatbox
+      width: 70%
+      background-color: $white
