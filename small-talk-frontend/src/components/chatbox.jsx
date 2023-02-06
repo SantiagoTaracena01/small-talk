@@ -43,4 +43,4 @@ const ChatBox = () => {
   )
 }
 
-export default MainPage
+export default ChatBox

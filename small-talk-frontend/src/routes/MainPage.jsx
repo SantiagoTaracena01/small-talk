@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
 import SmallTalkLogo from '../assets/images/small-talk-logo.png'
 import Chatbox from '../components/chatbox.jsx'
-import '../styles/main_page.sass'
+import '../styles/main-page.sass'
 import ChatGrid from '../components/chatInGrid.jsx'
 
 /*
