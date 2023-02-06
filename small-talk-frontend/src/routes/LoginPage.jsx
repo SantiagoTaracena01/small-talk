@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserContext } from '../providers/UserProvider'
 import SmallTalkLogo from '../assets/images/small-talk-logo.png'
 import '../styles/login-page.sass'
 
@@ -9,6 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState()
 
   const navigate = useNavigate()
+  const { setUser } = useContext(UserContext)
 
   useEffect(() => {
     const getUsers = async () => {
@@ -24,6 +26,7 @@ const LoginPage = () => {
     const user = users.find((user) => user.username === username)
     if (user) {
       if (user.password === password) {
+        setUser(user)
         navigate('/chat')
       } else {
         console.log('Wrong password')
