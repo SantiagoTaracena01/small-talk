@@ -4,6 +4,7 @@ import LandingPage from './routes/LandingPage'
 import MainPage from './routes/MainPage'
 import LoginPage from './routes/LoginPage'
 import SignUpPage from './routes/SignUpPage'
+import ProfilePage from './routes/ProfilePage'
 
 const App = () => (
   <Routes>
@@ -11,6 +12,7 @@ const App = () => (
     <Route path="/chat" element={<MainPage />} />
     <Route path="/login" element={<LoginPage />} />
     <Route path="/sign-up" element={<SignUpPage />} />
+    <Route path="/profile" element={<ProfilePage />} />
   </Routes>
 )
 
