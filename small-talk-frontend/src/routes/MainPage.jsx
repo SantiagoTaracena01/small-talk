@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { UserContext } from '../providers/UserProvider'
 
 const MainPage = () => {
@@ -6,9 +7,8 @@ const MainPage = () => {
 
   useEffect(() => {
     const getUser = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${loggedUser._id}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`)
       const data = await response.json()
-      console.log(data)
     }
     getUser()
   }, [])
@@ -17,7 +17,7 @@ const MainPage = () => {
     <div>
       <h1>Main Page</h1>
       <p>Welcome, {user._id}</p>
-      <button onClick={() => console.log("Hello!")}>Click</button>
+      <Link to="/profile">Profile</Link>
     </div>
   )
 }

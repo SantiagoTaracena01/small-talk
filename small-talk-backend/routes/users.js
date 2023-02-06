@@ -38,4 +38,23 @@ router.get('/:id', async (req, res) => {
   }
 })
 
+router.patch('/:id', async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id)
+    if (req.body.firstname !== null) {
+      user.firstname = req.body.firstname
+    }
+    if (req.body.lastname !== null) {
+      user.lastname = req.body.lastname
+    }
+    if (req.body.password !== null) {
+      user.password = req.body.password
+    }
+    const updatedUser = await user.save()
+    res.json(updatedUser)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
 module.exports = router
