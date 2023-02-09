@@ -95,8 +95,10 @@ const ProfilePage = () => {
                 onChange={(event) => setConfirmPassword(event.target.value)}
               />
             </div>
-            <button onClick={updateFields}>Update</button>
-            <button onClick={() => setUpdating(false)}>Close</button>
+            <div className="account-update-button-pair">
+              <button onClick={updateFields}>Update</button>
+              <button onClick={() => setUpdating(false)}>Close</button>
+            </div>
           </div>
         </div>
       ) : null}
