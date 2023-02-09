@@ -8,7 +8,9 @@ const chats = [
   {
     id: 1,
     profileColor: '#FFBD44',
-    receptor: 'Marco Jurado',
+    receptor: 'MaJu502',
+    receptorFirstname: 'Marco',
+    receptorLastname: 'Jurado',
     lastMessage: 'Hola, ¿cómo estás?',
     lastMessageTime: '23:45',
     unread: true
@@ -16,7 +18,9 @@ const chats = [
   {
     id: 2,
     profileColor: '#C2F6FF',
-    receptor: 'Gabriel Vicente',
+    receptor: 'GabrielVicente-GT',
+    receptorFirstname: 'Gabriel',
+    receptorLastname: 'Vicente',
     lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
     lastMessageTime: '23:36',
     unread: true

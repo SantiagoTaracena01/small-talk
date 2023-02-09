@@ -7,12 +7,17 @@
   justify-content: center
   align-items: center
   background-color: white
-  border: 1px solid $black
-  border-bottom: none
+  border-top: 2px solid $grey-border
   cursor: pointer
 
   &:hover
     background-color: $greyish
+
+  &:first-child
+    border-top: none
+
+  &:last-child
+    border-bottom: 2px solid $grey-border
 
   .profile-color
     width: 70px
