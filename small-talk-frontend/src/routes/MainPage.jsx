@@ -1,7 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ChatSpan from './components/ChatSpan'
 import { UserContext } from '../providers/UserProvider'
+import LogoutIcon from '../assets/icons/logout.png'
+import AddContactIcon from '../assets/icons/add-contact.png'
 import '../styles/main-page.sass'
 
 const chats = [
@@ -28,7 +30,10 @@ const chats = [
 ]
 
 const MainPage = () => {
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
+
+  const [isSearchingUser, setIsSearchingUser] = useState(false)
+  const [searchedUser, setSearchedUser] = useState(null)
 
   useEffect(() => {
     const getChats = async () => {
@@ -42,12 +47,26 @@ const MainPage = () => {
   return (
     <div className="main-page">
       <header>
+        <Link to="/login">
+          <img 
+            className="main-page-logout-icon"
+            src={LogoutIcon}
+            alt="Logout Icon"
+            onClick={() => setUser({ })}
+          />
+        </Link>
         <Link to="/profile">
           <div
             className="main-page-profile-color"
             style={{ backgroundColor: '#2286DD' }}
           />
         </Link>
+        <img
+          className="main-page-add-contact-icon"
+          src={AddContactIcon}
+          alt="Add Contact Icon"
+          onClick={() => setIsSearchingUser(true)}
+        />
       </header>
       <section>
         <aside>
@@ -64,6 +83,13 @@ const MainPage = () => {
           ))}
         </aside>
       </section>
+      {(isSearchingUser) ? (
+        <div className="add-contact-background">
+          <div className="add-contact-card">
+            <button onClick={() => setIsSearchingUser(false)}>Cerrar</button>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }

@@ -42,7 +42,7 @@ const ProfilePage = () => {
     <main>
       <h1>{`${user.firstname} ${user.lastname}`}</h1>
       <p>Username: {user.username}</p>
-      <button onClick={() => setUpdating(!updating)}>Update</button>
+      <button onClick={() => setUpdating(true)}>Update</button>
       {(updating) ? (
         <div className="account-update-popup-bg">
           <div className="account-update-popup-card">
@@ -82,12 +82,10 @@ const ProfilePage = () => {
               />
             </div>
             <button onClick={updateFields}>Update</button>
-            <button onClick={() => setUpdating(!updating)}>Close</button>
+            <button onClick={() => setUpdating(false)}>Close</button>
           </div>
         </div>
-      ) : (
-        null
-      )}
+      ) : null}
     </main>
   )
 }
