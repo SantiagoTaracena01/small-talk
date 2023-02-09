@@ -3,7 +3,7 @@ import { UserContext } from '../providers/UserProvider'
 import '../styles/profile-page.sass'
 
 const ProfilePage = () => {
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const [updating, setUpdating] = useState(false)
   const [updatedFirstname, setUpdatedFirstname] = useState(null)
@@ -12,7 +12,7 @@ const ProfilePage = () => {
   const [confirmPassword, setConfirmPassword] = useState()
 
   const updateFields = async () => {
-    if (updatedPassword !== confirmPassword) {
+    if (user.password !== confirmPassword) {
       alert('Passwords do not match')
       return
     }
@@ -32,6 +32,7 @@ const ProfilePage = () => {
     if (response.status === 200) {
       alert('Account updated')
       setUpdating(!updating)
+      setUser(await response.json())
     } else {
       alert('Error updating account')
     }
