@@ -24,7 +24,6 @@ const LoginPage = () => {
   const handleLogin = (event) => {
     event.preventDefault()
     const user = users.find((user) => user.username === username)
-    console.log(users)
     if (user) {
       if (user.password === password) {
         setUser(user)
