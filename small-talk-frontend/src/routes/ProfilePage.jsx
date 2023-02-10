@@ -1,17 +1,19 @@
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../providers/UserProvider'
 import LeftArrowIcon from '../assets/icons/left-arrow.png'
 import '../styles/profile-page.sass'
 
 const ProfilePage = () => {
   const { user, setUser } = useContext(UserContext)
+  const navigate = useNavigate()
 
   const [updating, setUpdating] = useState(false)
   const [updatedFirstname, setUpdatedFirstname] = useState(null)
   const [updatedLastname, setUpdatedLastname] = useState(null)
   const [updatedPassword, setUpdatedPassword] = useState(null)
   const [confirmPassword, setConfirmPassword] = useState()
+  const [deleting, setDeleting] = useState(false)
 
   const updateFields = async () => {
     if (user.password !== confirmPassword) {
@@ -40,6 +42,21 @@ const ProfilePage = () => {
     }
   }
 
+  const deleteCurrentUser = async () => {
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+      method: 'DELETE'
+    })
+    const data = await response.json()
+    if (response.status === 200) {
+      alert('Account deleted')
+      setDeleting(!deleting)
+      setUser({ })
+      navigate('/login')
+    } else {
+      alert('Error deleting account')
+    }
+  }
+
   return (
     <main>
       <Link to="/chat">
@@ -56,6 +73,7 @@ const ProfilePage = () => {
         <h2>{`${user.firstname} ${user.lastname}`}</h2>
         <p>Username: {user.username}</p>
         <button onClick={() => setUpdating(true)}>Update</button>
+        <button onClick={() => setDeleting(true)}>Delete</button>
       </div>
       {(updating) ? (
         <div className="account-update-popup-bg">
@@ -98,6 +116,18 @@ const ProfilePage = () => {
             <div className="account-update-button-pair">
               <button onClick={updateFields}>Update</button>
               <button onClick={() => setUpdating(false)}>Close</button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {(deleting) ? (
+        <div className="account-delete-popup-bg">
+          <div className="account-delete-popup-card">
+            <h2>Delete Account</h2>
+            <p>Are you sure you want to delete your account?</p>
+            <div className="account-delete-button-pair">
+              <button onClick={deleteCurrentUser}>Delete</button>
+              <button onClick={() => setDeleting(false)}>Close</button>
             </div>
           </div>
         </div>

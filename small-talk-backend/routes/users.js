@@ -20,6 +20,7 @@ router.post('/', async (req, res) => {
     lastname: req.body.lastName,
     password: req.body.password,
     contacts: [],
+    picture: req.body.picture,
   })
   try {
     const newUser = await user.save()
@@ -55,6 +56,15 @@ router.patch('/:id', async (req, res) => {
     console.log(updatedUser)
   } catch (error) {
     res.status(400).json({ message: error.message })
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    await User.findByIdAndDelete(req.params.id)
+    res.json({ message: 'User deleted' })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 })
 

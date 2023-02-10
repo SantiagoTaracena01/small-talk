@@ -20,6 +20,7 @@ const SignUpPage = () => {
         firstName,
         lastName,
         password,
+        picture: 'https://www.ubishops.ca/wp-content/uploads/no-photo-300x300-1.png',
       }
       const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
         method: 'POST',
