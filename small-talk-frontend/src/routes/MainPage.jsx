@@ -28,9 +28,24 @@ const chats = [
     unread: true
   }
 ]
+const dymSuggestions = [
+  {
+    id: 1,
+    userN: 'Gabo'
+  },
+  {
+    id: 1,
+    userN: 'Bidkoin'
+  },
+  {
+    id: 1,
+    userN: 'Hector'
+  }
+]
 
 const MainPage = () => {
   const { user, setUser } = useContext(UserContext)
+  //const [dymSuggestions, setDymSuggestions] = useState(false)
 
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
@@ -77,7 +92,15 @@ const MainPage = () => {
       {(isSearchingUser) ? (
         <div className="add-contact-background">
           <div className="add-contact-card">
-            <button onClick={() => setIsSearchingUser(false)}>Cerrar</button>
+            <div className='add-contact-profile-color' />
+            <input className='add-contact-input-user' type="text" id="username-add" placeholder="Username que deseas agregar" onChange={(event) => setSearchedUser(event.target.value)}/>
+            <p className='DYM-text'>Quieres decir...</p>
+            <div className='add-contact-did-you-mean-container'>
+              {dymSuggestions.map((suggestion) => (
+                <p className='suggestion-inside-add-contact'>{suggestion.userN}</p>
+              ))}
+            </div>
+            <button className='close-btn' onClick={() => setIsSearchingUser(false)}>Cerrar</button>
           </div>
         </div>
       ) : null}
