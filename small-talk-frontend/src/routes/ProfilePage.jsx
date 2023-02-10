@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { UserContext } from '../providers/UserProvider'
+import LeftArrowIcon from '../assets/icons/left-arrow.png'
 import '../styles/profile-page.sass'
 
 const ProfilePage = () => {
@@ -40,9 +42,21 @@ const ProfilePage = () => {
 
   return (
     <main>
-      <h1>{`${user.firstname} ${user.lastname}`}</h1>
-      <p>Username: {user.username}</p>
-      <button onClick={() => setUpdating(true)}>Update</button>
+      <Link to="/chat">
+        <img
+          className="left-arrow-icon"
+          src={LeftArrowIcon}
+        />
+      </Link>
+      <div className="profile-card">
+        <img
+          className="profile-picture"
+          src={user.picture}
+        />
+        <h2>{`${user.firstname} ${user.lastname}`}</h2>
+        <p>Username: {user.username}</p>
+        <button onClick={() => setUpdating(true)}>Update</button>
+      </div>
       {(updating) ? (
         <div className="account-update-popup-bg">
           <div className="account-update-popup-card">
@@ -81,8 +95,10 @@ const ProfilePage = () => {
                 onChange={(event) => setConfirmPassword(event.target.value)}
               />
             </div>
-            <button onClick={updateFields}>Update</button>
-            <button onClick={() => setUpdating(false)}>Close</button>
+            <div className="account-update-button-pair">
+              <button onClick={updateFields}>Update</button>
+              <button onClick={() => setUpdating(false)}>Close</button>
+            </div>
           </div>
         </div>
       ) : null}

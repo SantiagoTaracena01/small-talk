@@ -9,7 +9,7 @@ import '../styles/main-page.sass'
 const chats = [
   {
     id: 1,
-    profileColor: '#FFBD44',
+    picture: 'https://avatars.githubusercontent.com/u/60157453?v=4',
     receptor: 'MaJu502',
     receptorFirstname: 'Marco',
     receptorLastname: 'Jurado',
@@ -19,7 +19,7 @@ const chats = [
   },
   {
     id: 2,
-    profileColor: '#C2F6FF',
+    picture: 'https://avatars.githubusercontent.com/u/60375344?v=4',
     receptor: 'GabrielVicente-GT',
     receptorFirstname: 'Gabriel',
     receptorLastname: 'Vicente',
@@ -195,15 +195,6 @@ const MainPage = () => {
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
 
-  useEffect(() => {
-    const getChats = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}`)
-      const data = await response.json()
-      console.log(data)
-    }
-    getChats()
-  }, [])
-
   return (
     <div className="main-page">
       <header>
@@ -216,9 +207,9 @@ const MainPage = () => {
           />
         </Link>
         <Link to="/profile">
-          <div
-            className="main-page-profile-color"
-            style={{ backgroundColor: '#2286DD' }}
+          <img
+            className="main-page-profile-picture"
+            src={user.picture}
           />
         </Link>
         <img
@@ -235,7 +226,7 @@ const MainPage = () => {
             <ChatSpan 
               key={chat.id}
               onClick={() => console.log('Chat clicked')}
-              profileColor={chat.profileColor}
+              profilePicture={chat.picture}
               receptor={chat.receptor}
               lastMessage={chat.lastMessage}
               lastMessageTime={chat.lastMessageTime}

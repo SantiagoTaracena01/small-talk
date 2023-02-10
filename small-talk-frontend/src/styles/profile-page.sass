@@ -1,5 +1,32 @@
 @import './main'
 
+.left-arrow-icon
+  position: absolute
+  width: 30px
+  top: 10px
+  left: 10px
+
+.profile-card
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  gap: 20px
+
+  .profile-picture
+    width: 250px
+    object-fit: cover
+    border-radius: 50%
+
+  h2
+    margin: 0
+    font-size: 2rem
+    font-family: $titles
+  
+  p
+    font-size: 1.25rem
+    font-family: $paragraphs
+
 .account-update-popup-bg
   position: absolute
   top: 0
@@ -15,8 +42,61 @@
     height: 70%
     display: flex
     flex-direction: column
-    justify-content: space-evenly
+    justify-content: center
     align-items: center
+    gap: 20px
     border-radius: 50px
     box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.5)
     background-color: $white
+
+    h2
+      margin: 0
+      font-size: 2rem
+      font-family: $titles
+
+    .account-update-option-pair
+      width: 30%
+      display: flex
+      flex-direction: column
+      justify-content: center
+      align-items: center
+      gap: 10px
+
+      label
+        font-size: 1rem
+        font-family: $paragraphs
+
+      input
+        width: 100%
+        font-family: $paragraphs
+        font-size: 1rem
+        margin: 0 auto
+        padding: 5px 0
+        color: $black
+        border: none
+        border-bottom: 2px solid $black
+
+        &:focus-visible
+          outline: none
+
+    .account-update-button-pair
+      display: flex
+      justify-content: center
+      align-items: center
+      gap: 20px
+
+      button
+        width: 80%
+        max-width: 125px
+        height: 50px
+        border: none
+        border-radius: 10px
+        padding: 10px 20px
+        background-color: $primary-color
+        color: $white
+        font-family: $paragraphs
+        font-size: 1.25rem
+        cursor: pointer
+
+        &:hover
+          background-color: $primary-color-light
