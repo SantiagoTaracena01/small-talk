@@ -26,166 +26,6 @@ const chats = [
     lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
     lastMessageTime: '23:36',
     unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  },
-  {
-    id: 2,
-    profileColor: '#C2F6FF',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
   }
 ]
 
@@ -220,7 +60,6 @@ const MainPage = () => {
         />
       </header>
       <section>
-
         <aside>
           {chats.map((chat) => (
             <ChatSpan 
@@ -234,7 +73,6 @@ const MainPage = () => {
             />
           ))}
         </aside>
-
       </section>
       {(isSearchingUser) ? (
         <div className="add-contact-background">
