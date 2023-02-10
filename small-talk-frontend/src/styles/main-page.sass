@@ -42,6 +42,9 @@
     width: 100%
     height: 100vh
     position: absolute
+    display: flex
+    align-items: center
+    justify-content: center
     top: 0
     left: 0
     background-color: rgba(0, 0, 0, 0.5)
@@ -49,4 +52,54 @@
     .add-contact-card
       width: 50%
       height: 70%
+      border-radius: 10px
       background-color: $white
+      display: flex
+      flex-direction: column
+      justify-content:  center
+
+      .close-btn
+        height: 5%
+        width: 10%
+        font-family: $titles
+        margin-right: auto
+        margin-left: auto
+        margin-top: 10%
+
+      
+      .add-contact-profile-color
+        width: 70px
+        height: 70px
+        border-radius: 50%
+        margin-right: auto
+        margin-left: auto
+        margin-top: -0%
+        background: $primary-color-background
+
+      .add-contact-input-user
+        width: inherit
+        font-family: $paragraphs
+        font-size: 1rem
+        margin: 0 auto
+        padding: 5px 0
+        padding-top: 7%
+        color: $black
+        border: none
+        border-bottom: 2px solid $black
+        text-align: center
+
+      .DYM-text
+        font-family: $titles
+        margin-left: auto
+        margin-right: auto
+        padding-top: 3%
+
+      .add-contact-did-you-mean-container
+        width: 50%
+        padding-top: 2%
+        display: flex
+        font-family: $paragraphs
+        flex-direction: row
+        justify-content: space-around
+        margin-left: auto
+        margin-right: auto
