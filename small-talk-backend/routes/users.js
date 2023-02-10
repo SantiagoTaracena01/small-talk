@@ -51,9 +51,12 @@ router.patch('/:id', async (req, res) => {
     if (req.body.password !== null) {
       user.password = req.body.password
     }
+    if (req.body.picture !== null) {
+      user.picture = req.body.picture
+    }
     const updatedUser = await user.save()
     res.json(updatedUser)
-    console.log(updatedUser)
+    console.log('', updatedUser)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }
