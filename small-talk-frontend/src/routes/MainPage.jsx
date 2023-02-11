@@ -113,17 +113,16 @@ const MainPage = () => {
       </header>
       <section>
         <aside>
-          {userChats.map((chat) => (
-            // <ChatSpan 
-            //   key={chat.id}
-            //   onClick={() => console.log('Chat clicked')}
-            //   profilePicture={chat.picture}
-            //   receptor={chat.receptor}
-            //   lastMessage={chat.lastMessage}
-            //   lastMessageTime={chat.lastMessageTime}
-            //   unread={chat.unread}
-            // />
-            console.log('Hello')
+          {userChats.map((userChat) => (
+            <ChatSpan
+              key={userChat._id}
+              onClick={() => console.log('Chat clicked')}
+              profilePicture={userChat.picture}
+              receptor={userChat.receptor}
+              lastMessage={userChat.lastMessage}
+              lastMessageTime={userChat.lastMessageTime}
+              unread={userChat.unread}
+            />
           ))}
         </aside>
       </section>
