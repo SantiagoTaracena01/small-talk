@@ -6,28 +6,6 @@ import LogoutIcon from '../assets/icons/logout.png'
 import AddContactIcon from '../assets/icons/add-contact.png'
 import '../styles/main-page.sass'
 
-const chats = [
-  {
-    id: 1,
-    picture: 'https://avatars.githubusercontent.com/u/60157453?v=4',
-    receptor: 'MaJu502',
-    receptorFirstname: 'Marco',
-    receptorLastname: 'Jurado',
-    lastMessage: 'Hola, ¿cómo estás?',
-    lastMessageTime: '23:45',
-    unread: true
-  },
-  {
-    id: 2,
-    picture: 'https://avatars.githubusercontent.com/u/60375344?v=4',
-    receptor: 'GabrielVicente-GT',
-    receptorFirstname: 'Gabriel',
-    receptorLastname: 'Vicente',
-    lastMessage: 'Bro, fijate que hay qué trabajar bastante en Bases de Datos',
-    lastMessageTime: '23:36',
-    unread: true
-  }
-]
 const dymSuggestions = [
   {
     id: 1,
@@ -46,11 +24,11 @@ const dymSuggestions = [
 const MainPage = () => {
   const { user, setUser } = useContext(UserContext)
   //const [dymSuggestions, setDymSuggestions] = useState(false)
-  const [users, setUsers] = useState()
+  const [users, setUsers] = useState([])
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
+  const [userChats, setUserChats] = useState([])
 
-  // get users in db
   useEffect(() => {
     const getUsers = async () => {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
@@ -59,6 +37,16 @@ const MainPage = () => {
     }
     getUsers()
   }, [])
+
+  useEffect(() => {
+    const chats = []
+    user.contacts.forEach((contact) => {
+      // users.find = undefined, users = undefined
+      const foundChat = users.find((user) => (user._id === contact))
+      chats.push(foundChat)
+    })
+    setUserChats(chats)
+  }, [users])
 
   const handleLogout = async () => {
     setUser({ })
@@ -124,16 +112,17 @@ const MainPage = () => {
       </header>
       <section>
         <aside>
-          {chats.map((chat) => (
-            <ChatSpan 
-              key={chat.id}
-              onClick={() => console.log('Chat clicked')}
-              profilePicture={chat.picture}
-              receptor={chat.receptor}
-              lastMessage={chat.lastMessage}
-              lastMessageTime={chat.lastMessageTime}
-              unread={chat.unread}
-            />
+          {userChats.map((chat) => (
+            // <ChatSpan 
+            //   key={chat.id}
+            //   onClick={() => console.log('Chat clicked')}
+            //   profilePicture={chat.picture}
+            //   receptor={chat.receptor}
+            //   lastMessage={chat.lastMessage}
+            //   lastMessageTime={chat.lastMessageTime}
+            //   unread={chat.unread}
+            // />
+            console.log('Hello')
           ))}
         </aside>
       </section>
