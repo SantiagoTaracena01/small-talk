@@ -21,6 +21,7 @@ router.post('/', async (req, res) => {
     password: req.body.password,
     contacts: [],
     picture: req.body.picture,
+    logged: false,
   })
   try {
     const newUser = await user.save()
@@ -54,9 +55,11 @@ router.patch('/:id', async (req, res) => {
     if (req.body.picture !== null) {
       user.picture = req.body.picture
     }
+    if (req.body.logged !== null) {
+      user.logged = req.body.logged
+    }
     const updatedUser = await user.save()
     res.json(updatedUser)
-    console.log('', updatedUser)
   } catch (error) {
     res.status(400).json({ message: error.message })
   }

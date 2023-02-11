@@ -35,6 +35,7 @@ const ProfilePage = () => {
         lastname: updatedLastname,
         password: updatedPassword,
         picture: updatedPictureUrl,
+        logged: true,
       })
     })
 
