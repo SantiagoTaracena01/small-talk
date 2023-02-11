@@ -6,29 +6,13 @@ import LogoutIcon from '../assets/icons/logout.png'
 import AddContactIcon from '../assets/icons/add-contact.png'
 import '../styles/main-page.sass'
 
-const dymSuggestions = [
-  {
-    id: 1,
-    userN: 'Gabo'
-  },
-  {
-    id: 1,
-    userN: 'Bidkoin'
-  },
-  {
-    id: 1,
-    userN: 'Hector'
-  }
-]
-
 const MainPage = () => {
   const { user, setUser } = useContext(UserContext)
-  //const [dymSuggestions, setDymSuggestions] = useState(false)
-  const [users, setUsers] = useState([])
+
+  const [users, setUsers] = useState()
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
-  const [userChats, setUserChats] = useState([])
-  //const [idChatsBubble, setIdChatsBubble] = useState([])
+  const [userChats, setUserChats] = useState()
 
   useEffect(() => {
     const getUsers = async () => {
@@ -40,9 +24,9 @@ const MainPage = () => {
   }, [])
 
   useEffect(() => {
+    if (!users) return
     const chats = []
     user.contacts.forEach((contact) => {
-      // users.find = undefined, users = undefined
       const foundChat = users.find((user) => (user._id === contact))
       chats.push(foundChat)
     })
@@ -113,15 +97,15 @@ const MainPage = () => {
       </header>
       <section>
         <aside>
-          {userChats.map((userChat) => (
+          {userChats && userChats.map((userChat) => (
             <ChatSpan
               key={userChat._id}
               onClick={() => console.log('Chat clicked')}
               profilePicture={userChat.picture}
-              receptor={userChat.receptor}
-              lastMessage={userChat.lastMessage}
-              lastMessageTime={userChat.lastMessageTime}
-              unread={userChat.unread}
+              receptor={`${userChat.firstname} ${userChat.lastname}`}
+              lastMessage={'Hola bro'}
+              lastMessageTime={`${new Date().getHours()}:${new Date().getMinutes()}`}
+              unread={true}
             />
           ))}
         </aside>
@@ -129,22 +113,15 @@ const MainPage = () => {
       {(isSearchingUser) ? (
         <div className="add-contact-background">
           <div className="add-contact-card">
+            <h2>Add a new contact by username</h2>
             <input
-              className="add-contact-input-user"
               type="text"
-              id="username-add"
-              placeholder="Username que deseas agregar"
+              placeholder="Username"
               onChange={(event) => setSearchedUser(event.target.value)}
             />
-            <p className='DYM-text'>Quieres decir...</p>
-            <div className='add-contact-did-you-mean-container'>
-              {dymSuggestions.map((suggestion) => (
-                <p className='suggestion-inside-add-contact'>{suggestion.userN}</p>
-              ))}
-            </div>
-            <div className='container-btns'>
-              <button className="close-btn" onClick={handleAddContact}>Accept</button>
-              <button className='close-btn' onClick={() => setIsSearchingUser(false)}>Close</button>
+            <div className="add-contact-button-container">
+              <button onClick={handleAddContact}>Accept</button>
+              <button onClick={() => setIsSearchingUser(false)}>Close</button>
             </div>
           </div>
         </div>

@@ -1,8 +1,10 @@
 require('dotenv').config()
 
 const express = require('express')
+const mongoose = require('mongoose')
 const router = express.Router()
 const Chat = require('../models/chat')
+const User = require('../models/user')
 
 router.get('/', async (req, res) => {
   try {
@@ -13,10 +15,24 @@ router.get('/', async (req, res) => {
   }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:uid', async (req, res) => {
   try {
-    const chats = await Chat.find({ users: req.params.id })
-    res.json(chats)
+    const uid = req.params.uid
+    console.log(uid)
+    // userid
+    // User.contacts = [...]
+    // Match User donde User.contacts contiene userid
+    const users = await User.aggregate([
+      {
+        '$match': {
+          '$expr': {
+            '$in': [mongoose.Types.ObjectId(uid), '$contacts']
+          }
+        }
+      }
+    ])
+    console.log(users)
+    res.json(users)
   } catch (error) {
     res.status(500).json({ message: error.message })
   }

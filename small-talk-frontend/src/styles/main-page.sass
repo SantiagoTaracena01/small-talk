@@ -64,30 +64,57 @@
     background-color: rgba(0, 0, 0, 0.5)
 
     .add-contact-card
-      width: 50%
-      height: 70%
-      border-radius: 10px
+      width: 40%
+      height: 50%
+      border-radius: 50px
       background-color: $white
       display: flex
       flex-direction: column
       justify-content:  center
+      align-items: center
+      gap: 40px
+      box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.5)
 
-      .container-btns
+      h2
+        font-family: $titles
+        margin-left: auto
+        margin-right: auto
+
+      input
+        width: 40%
+        font-family: $paragraphs
+        font-size: 1rem
+        padding: 5px 0
+        color: $black
+        border: none
+        border-bottom: 2px solid $black
+
+        &:focus-visible
+          outline: none
+
+      .add-contact-button-container
         display: flex
         flex-direction: row
         justify-content: center
         align-content: center
+        gap: 20px
 
-        .close-btn
-          height: 25px
-          width: 10%
-          font-family: $titles
-          margin-right: auto
-          margin-left: auto
-          margin-top: 10%
-        
+        button
+          width: 80%
+          max-width: 125px
+          height: 50px
+          padding: 10px 20px
+          border: none
+          border-radius: 10px
+          background-color: $primary-color
+          color: $white
+          font-family: $paragraphs
+          font-size: 1.25rem
+          cursor: pointer
 
-      
+          &:hover
+            background-color: $primary-color-light
+
       .add-contact-profile-color
         width: 70px
         height: 70px
@@ -96,18 +123,6 @@
         margin-left: auto
         margin-top: -0%
         background: $primary-color-background
-
-      .add-contact-input-user
-        width: inherit
-        font-family: $paragraphs
-        font-size: 1rem
-        margin: 0 auto
-        padding: 5px 0
-        padding-top: 7%
-        color: $black
-        border: none
-        border-bottom: 2px solid $black
-        text-align: center
 
       .DYM-text
         font-family: $titles
