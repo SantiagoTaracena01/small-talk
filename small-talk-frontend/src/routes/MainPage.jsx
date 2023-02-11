@@ -28,6 +28,7 @@ const MainPage = () => {
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
   const [userChats, setUserChats] = useState([])
+  //const [idChatsBubble, setIdChatsBubble] = useState([])
 
   useEffect(() => {
     const getUsers = async () => {
