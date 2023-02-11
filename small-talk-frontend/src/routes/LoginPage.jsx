@@ -42,7 +42,7 @@ const LoginPage = () => {
       setAlertMessage('User already logged')
       return
     }
-    const logResponse = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

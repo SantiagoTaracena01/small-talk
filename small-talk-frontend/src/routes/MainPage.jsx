@@ -50,15 +50,33 @@ const MainPage = () => {
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
 
+  const handleLogout = async () => {
+    setUser({ })
+    await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: null,
+        firstname: null,
+        lastname: null,
+        password: null,
+        picture: null,
+        logged: false,
+      })
+    })
+  }
+
   return (
     <div className="main-page">
       <header>
         <Link to="/login">
-          <img 
+          <img
             className="main-page-logout-icon"
             src={LogoutIcon}
             alt="Logout Icon"
-            onClick={() => setUser({ })}
+            onClick={handleLogout}
           />
         </Link>
         <Link to="/profile">

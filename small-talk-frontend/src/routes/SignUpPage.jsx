@@ -1,40 +1,43 @@
 import React, { useState } from 'react'
 import { Link, useNavigate} from 'react-router-dom'
+import Alert from './components/Alert'
 import SmallTalkLogo from '../assets/images/small-talk-logo.png'
 import '../styles/sign-up-page.sass'
 
 const SignUpPage = () => {
-  const [username, setUsername] = useState('')
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
+  const [username, setUsername] = useState()
+  const [firstName, setFirstName] = useState()
+  const [lastName, setLastName] = useState()
+  const [password, setPassword] = useState()
+  const [confirmPassword, setConfirmPassword] = useState()
+  const [alert, setAlert] = useState()
+  const [alertMessage, setAlertMessage] = useState()
 
   const navigate = useNavigate()
 
   const handleSignUp = async (event) => {
     event.preventDefault()
-    if (password === confirmPassword) {
-      const user = {
-        username,
-        firstName,
-        lastName,
-        password,
-        picture: 'https://www.ubishops.ca/wp-content/uploads/no-photo-300x300-1.png',
-      }
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/users`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(user),
-      })
-      const data = await response.json()
-      console.log(data)
-      navigate('/login')
-    } else {
-      console.log('Passwords do not match')
+    if (password !== confirmPassword) {
+      setAlert(true)
+      setAlertMessage('Passwords do not match')
+      return
     }
+    const user = {
+      username,
+      firstName,
+      lastName,
+      password,
+      picture: 'https://www.ubishops.ca/wp-content/uploads/no-photo-300x300-1.png',
+      logged: false
+    }
+    await fetch(`${import.meta.env.VITE_API_URL}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(user),
+    })
+    navigate('/login')
   }
 
   return (
@@ -81,6 +84,7 @@ const SignUpPage = () => {
           If you have an account, you can <Link to="/login">Log In</Link>
         </p>
       </div>
+      {(alert) ? <Alert message={alertMessage} setTrigger={setAlert} /> : null}
     </main>
   )
 }

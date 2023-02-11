@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../providers/UserProvider'
+import Alert from './components/Alert'
 import LeftArrowIcon from '../assets/icons/left-arrow.png'
 import '../styles/profile-page.sass'
 
@@ -16,14 +17,15 @@ const ProfilePage = () => {
   const [confirmPassword, setConfirmPassword] = useState()
   const [deleting, setDeleting] = useState(false)
   const [deletingPassword, setDeletingPassword] = useState(null)
+  const [alert, setAlert] = useState(false)
+  const [alertMessage, setAlertMessage] = useState()
 
   const updateFields = async () => {
     if (user.password !== confirmPassword) {
-      alert('Passwords do not match')
+      setAlert(true)
+      setAlertMessage('Passwords do not match')
       return
     }
-
-    console.log(updatedPictureUrl)
 
     const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
       method: 'PATCH',
@@ -40,29 +42,34 @@ const ProfilePage = () => {
     })
 
     if (response.status === 200) {
-      alert('Account updated')
-      setUpdating(!updating)
+      setAlert(true)
+      setAlertMessage('Account updated')
+      setUpdating(false)
       setUser(await response.json())
     } else {
-      alert('Error updating account')
+      setAlert(true)
+      setAlertMessage('Error updating account')
     }
   }
 
   const deleteCurrentUser = async () => {
     if (user.password !== deletingPassword) {
-      alert('Passwords do not match')
+      setAlert(true)
+      setAlertMessage('Passwords do not match')
       return
     }
     const response = await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
       method: 'DELETE'
     })
     if (response.status === 200) {
-      alert('Account deleted')
-      setDeleting(!deleting)
+      setAlert(true)
+      setAlertMessage('Account deleted')
+      setDeleting(false)
       setUser({ })
       navigate('/login')
     } else {
-      alert('Error deleting account')
+      setAlert(true)
+      setAlertMessage('Error deleting account')
     }
   }
 
@@ -164,6 +171,7 @@ const ProfilePage = () => {
           </div>
         </div>
       ) : null}
+      {(alert) ? <Alert message={alertMessage} setTrigger={setAlert} /> : null}
     </main>
   )
 }
