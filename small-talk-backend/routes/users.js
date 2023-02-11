@@ -52,6 +52,9 @@ router.patch('/:id', async (req, res) => {
     if (req.body.password !== null) {
       user.password = req.body.password
     }
+    if (req.body.contacts !== null) {
+      user.contacts = req.body.contacts
+    }
     if (req.body.picture !== null) {
       user.picture = req.body.picture
     }

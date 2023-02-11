@@ -52,6 +52,7 @@ const LoginPage = () => {
         firstname: null,
         lastname: null,
         password: null,
+        contacts: null,
         picture: null,
         logged: true,
       })
