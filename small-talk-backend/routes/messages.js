@@ -1,7 +1,6 @@
 require('dotenv').config()
 
 const express = require('express')
-const mongoose = require('mongoose')
 const router = express.Router()
 const Message = require('../models/message')
 const User = require('../models/user')
