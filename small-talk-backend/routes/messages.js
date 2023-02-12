@@ -1,6 +1,7 @@
 require('dotenv').config()
 
 const express = require('express')
+const mongoose = require('mongoose')
 const router = express.Router()
 const Message = require('../models/message')
 const User = require('../models/user')
@@ -10,14 +11,15 @@ router.get('/:uid/:id', async (req, res) => {
     const uid = req.params.uid
     const id = req.params.id
 
-    const lastMessage = await Message.find({
+    const messages = await Message.find({
       $or: [
         { $and: [ { 'sender': uid }, { 'receiver': id } ] },
         { $and: [ { 'receiver': uid }, { 'sender': id } ] }
       ]
     }).sort({ 'content.date': -1 })
 
-    res.json(lastMessage)
+    console.log(messages)
+    res.json(messages)
   } catch (err) {
     res.status(500).json({ message: err.message })
   }
@@ -65,10 +67,26 @@ router.get('/:uid', async (req, res) => {
         message: message || {}
       }
     })
-    console.log(lastMessageResponse)
     res.json(lastMessageResponse)
   } catch (error) {
     res.status(500).json({ message: error.message })
+  }
+})
+
+router.post('/', async (req, res) => {
+  const message = new Message({
+    sender: req.body.sender,
+    receiver: req.body.receiver,
+    content: {
+      text: req.body.content.text,
+      date: new Date()
+    }
+  })
+  try {
+    const newMessage = await message.save()
+    res.status(201).json(newMessage)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
   }
 })
 

@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 
-const chatSchema = new mongoose.Schema({
-  users: Array,
+const messageContentSchema = new mongoose.Schema({
+  text: String,
+  date: Date,
 })
 
-module.exports = mongoose.model('Chat', chatSchema)
+module.exports = mongoose.model('MessageContent', messageContentSchema)

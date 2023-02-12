@@ -23,10 +23,11 @@ const MainPage = () => {
   const [userChats, setUserChats] = useState()
   const [chat, setChat] = useState()
   const [chatReceiver, setChatReceiver] = useState()
+  const [message, setMessage] = useState()
 
   useEffect(() => {
     const getUserChats = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}`)
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/messages/${user._id}`)
       const data = await response.json()
       setUserChats(data)
     }
@@ -73,9 +74,29 @@ const MainPage = () => {
 
   const selectAndLoadChat = async (userId) => {
     setChatReceiver(userId)
-    const selectedChat = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}/${userId}`)
+    const selectedChat = await fetch(`${import.meta.env.VITE_API_URL}/messages/${user._id}/${userId}`)
     const data = await selectedChat.json()
     setChat(data)
+  }
+
+  const sendMessage = async () => {
+    const newMessage = {
+      sender: user._id,
+      receiver: chatReceiver,
+      content: {
+        text: message,
+        date: new Date()
+      }
+    }
+    const response = await fetch(`${import.meta.env.VITE_API_URL}/messages`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(newMessage)
+    })
+    const data = await response.json()
+    setChat([data, ...chat])
   }
 
   return (
@@ -142,11 +163,16 @@ const MainPage = () => {
             )}
           </div>
           <div className="chat-input">
-            <input
-              type="text"
-              placeholder="Type a message..."
-            />
-            <button>Send</button>
+            {(chat) ? (
+              <>
+                <input
+                  type="text"
+                  placeholder="Type a message..."
+                  onChange={(event) => setMessage(event.target.value)}
+                />
+                <button onClick={sendMessage}>Send</button> 
+              </>    
+            ) : null}
           </div>
         </div>
       </section>
