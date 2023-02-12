@@ -1,10 +1,9 @@
 const mongoose = require('mongoose')
 
 const messageSchema = new mongoose.Schema({
-  context: { sender: String, receiver: String },
-  message: String,
-  date: Date,
-  read: Boolean,
+  sender: String,
+  receiver: String,
+  context: { message: String, date: Date },
 })
 
 module.exports = mongoose.model('Message', messageSchema)
