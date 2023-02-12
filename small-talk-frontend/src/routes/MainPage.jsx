@@ -1,37 +1,37 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ChatSpan from './components/ChatSpan'
+import Message from './components/Message'
 import { UserContext } from '../providers/UserProvider'
 import LogoutIcon from '../assets/icons/logout.png'
 import AddContactIcon from '../assets/icons/add-contact.png'
+import SmallTalkLogo from '../assets/images/small-talk-logo.png'
 import '../styles/main-page.sass'
+
+const hour = (mongoDate) => {
+  const date = new Date(mongoDate)
+  const hours = date.getHours()
+  const minutes = (date.getMinutes() < 10) ? `0${date.getMinutes()}` : date.getMinutes()
+  return `${hours}:${minutes}`
+}
 
 const MainPage = () => {
   const { user, setUser } = useContext(UserContext)
 
-  const [users, setUsers] = useState()
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
   const [userChats, setUserChats] = useState()
+  const [chat, setChat] = useState()
+  const [chatReceiver, setChatReceiver] = useState()
 
   useEffect(() => {
-    const getUsers = async () => {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
+    const getUserChats = async () => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}`)
       const data = await response.json()
-      setUsers(data)
+      setUserChats(data)
     }
-    getUsers()
+    getUserChats()
   }, [])
-
-  useEffect(() => {
-    if (!users) return
-    const chats = []
-    user.contacts.forEach((contact) => {
-      const foundChat = users.find((user) => (user._id === contact))
-      chats.push(foundChat)
-    })
-    setUserChats(chats)
-  }, [users])
 
   const handleLogout = async () => {
     setUser({ })
@@ -71,6 +71,13 @@ const MainPage = () => {
     })
   }
 
+  const selectAndLoadChat = async (userId) => {
+    setChatReceiver(userId)
+    const selectedChat = await fetch(`${import.meta.env.VITE_API_URL}/chats/${user._id}/${userId}`)
+    const data = await selectedChat.json()
+    setChat(data)
+  }
+
   return (
     <div className="main-page">
       <header>
@@ -100,15 +107,48 @@ const MainPage = () => {
           {userChats && userChats.map((userChat) => (
             <ChatSpan
               key={userChat._id}
-              onClick={() => console.log('Chat clicked')}
+              onClick={() => selectAndLoadChat(userChat._id)}
               profilePicture={userChat.picture}
               receptor={`${userChat.firstname} ${userChat.lastname}`}
-              lastMessage={'Hola bro'}
-              lastMessageTime={`${new Date().getHours()}:${new Date().getMinutes()}`}
-              unread={true}
+              lastMessage={`${userChat.message.content?.text || 'Start a new chat!'}`}
+              lastMessageTime={`${userChat.message.content && hour(userChat.message.content?.date) || 'Now'}`}
             />
           ))}
         </aside>
+        <div className="chat-section">
+          <div className="chat-page">
+            {(chat && chat.length) ? (
+              <div className="chat-page-chat">
+                {chat.map((message) => (
+                  <Message
+                    key={message._id}
+                    message={message.content.text}
+                    hour={hour(message.content.date)}
+                    isSender={message.sender === user._id}
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="chat-page-welcome">
+                <img
+                  src={SmallTalkLogo}
+                  alt="Small Talk Logo"
+                />
+                <div className="chat-text-container">
+                  <h1>Welcome to Small Talk!</h1>
+                  <h2>Start a new chat by clicking on a contact</h2>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="chat-input">
+            <input
+              type="text"
+              placeholder="Type a message..."
+            />
+            <button>Send</button>
+          </div>
+        </div>
       </section>
       {(isSearchingUser) ? (
         <div className="add-contact-background">
