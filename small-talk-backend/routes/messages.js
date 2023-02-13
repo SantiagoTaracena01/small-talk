@@ -241,11 +241,11 @@ router.patch('/:id', async (req, res) => {
 
 router.delete('/:id', async (req, res) => {
   try {
-    const message = await Message.findById(req.params.id)
-    if (message === null) {
+    const messageContent = await MessageContent.findById(req.params.id)
+    if (messageContent === null) {
       return res.status(404).json({ message: 'Cannot find message' })
     }
-    await message.remove()
+    await messageContent.remove()
     res.json({ message: 'Deleted message' })
   } catch (error) {
     res.status(500).json({ message: error.message })
