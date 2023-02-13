@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const router = express.Router()
+const MessageContent = require('../models/messageContent')
 const Message = require('../models/message')
 const User = require('../models/user')
 
@@ -21,10 +22,21 @@ router.get('/:uid/:id', async (req, res) => {
         }
       },
       {
+        $lookup: {
+          from: 'messagecontents',
+          localField: 'content',
+          foreignField: '_id',
+          as: 'content'
+        }
+      },
+      {
+        $unwind: '$content'
+      },
+      {
         $sort: {
           'content.date': -1
         }
-      }
+      },
     ])
 
     res.json(messages)
@@ -73,6 +85,48 @@ router.get('/:uid', async (req, res) => {
         $addFields: {
           messages: {
             $concatArrays: ['$senderMessages', '$receiverMessages']
+          }
+        }
+      },
+      {
+        $project: {
+          senderMessages: 0,
+          receiverMessages: 0
+        }
+      },
+      {
+        $lookup: {
+          from: 'messagecontents',
+          localField: 'messages.content',
+          foreignField: '_id',
+          as: 'messageContent'
+        }
+      },
+      {
+        $addFields: {
+          messages: {
+            $map: {
+              input: '$messages',
+              as: 'message',
+              in: {
+                $mergeObjects: [
+                  '$$message',
+                  {
+                    content: {
+                      $arrayElemAt: [
+                        '$messageContent',
+                        {
+                          $indexOfArray: [
+                            '$messages.content',
+                            '$$message.content'
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
           }
         }
       },
@@ -136,8 +190,14 @@ router.get('/:uid', async (req, res) => {
         $sort: {
           'lastMessage.content.date': -1
         }
+      },
+      {
+        $project: {
+          sortedMessages: 0
+        }
       }
     ])
+
     res.json(lastMessages)
   } catch (error) {
     res.status(500).json({ message: error.message })
@@ -145,15 +205,17 @@ router.get('/:uid', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
+  const messageContent = new MessageContent({
+    text: req.body.content.text,
+    date: new Date()
+  })
   const message = new Message({
     sender: mongoose.Types.ObjectId(req.body.sender),
     receiver: mongoose.Types.ObjectId(req.body.receiver),
-    content: {
-      text: req.body.content.text,
-      date: new Date()
-    }
+    content: messageContent
   })
   try {
+    await messageContent.save()
     const newMessage = await message.save()
     res.status(201).json(newMessage)
   } catch (error) {
@@ -163,14 +225,14 @@ router.post('/', async (req, res) => {
 
 router.patch('/:id', async (req, res) => {
   try {
-    const message = await Message.findById(req.params.id)
-    if (message === null) {
+    const messageContent = await MessageContent.findById(req.params.id)
+    if (messageContent === null) {
       return res.status(404).json({ message: 'Cannot find message' })
     }
     if (req.body.content !== null) {
-      message.content.text = req.body.content.text
+      messageContent.text = req.body.content.text
     }
-    const updatedMessage = await message.save()
+    const updatedMessage = await messageContent.save()
     res.json(updatedMessage)
   } catch (error) {
     res.status(500).json({ message: error.message })

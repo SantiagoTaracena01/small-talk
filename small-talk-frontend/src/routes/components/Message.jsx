@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import '../../styles/message.sass'
 
-const Message = ({ messageId, message, hour, isSender }) => {
+const Message = ({ messageId, messageContentId, message, hour, isSender }) => {
   const [currentMessage, setCurrentMessage] = useState(message)
   const [updating, setUpdating] = useState(false)
 
   const updateMessage = async (updatedMessage) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/messages/${messageId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/messages/${messageContentId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'

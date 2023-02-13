@@ -156,6 +156,7 @@ const MainPage = () => {
                   <Message
                     key={message._id}
                     messageId={message._id}
+                    messageContentId={message.content._id}
                     message={message.content.text}
                     hour={hour(message.content.date)}
                     isSender={message.sender === user._id}
