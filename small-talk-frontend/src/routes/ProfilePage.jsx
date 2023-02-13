@@ -98,10 +98,12 @@ const ProfilePage = () => {
           <div className="account-update-popup-card">
             <h2>Update Account</h2>
             <div className="account-update-form">
-              <div className="account-update-option-pair">
+              <div className="account-update-option-pair-picture">
                 <label htmlFor="profile-picture">Profile Picture</label>
                 <input
-                  type="text"
+                  action='/upload'
+                  type="file"
+                  name='ppPictureFile'
                   id="profile-picture"
                   defaultValue={user.picture}
                   onChange={(event) => {
