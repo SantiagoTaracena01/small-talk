@@ -1,0 +1,63 @@
+@import './main'
+
+.message
+  display: flex
+  flex-direction: column
+  gap: 10px
+  padding: 10px 20px
+  margin: 0 20px
+  font-family: $paragraphs
+
+  &:first-child
+    margin-bottom: 20px
+
+  p
+    font-size: 1.15rem
+
+  input
+    border: none
+    background-color: transparent
+    border-bottom: 2px solid $white
+    font-family: $paragraphs
+    font-size: 1.15rem
+    color: $white
+
+    &:focus-visible
+      outline: none
+
+  .message-content
+    display: flex
+    justify-content: space-between
+
+    span
+      font-size: 0.8rem
+      font-weight: bolder
+
+    .message-content-buttons
+      display: flex
+      gap: 10px
+
+      .message-button
+        border: none
+        background-color: transparent
+        font-size: 0.8rem
+        font-weight: bolder
+        cursor: pointer
+        color: $white
+
+        &:hover
+          color: $grey-border
+          text-decoration: underline
+
+.sent
+  background-color: $primary-color
+  color: $white
+  align-self: flex-end
+  border-radius: 15px 15px 0 15px
+
+.received
+  background-color: $white
+  color: $black
+  align-self: flex-start
+  border: 2px solid $grey-border
+  border-radius: 15px 15px 15px 0

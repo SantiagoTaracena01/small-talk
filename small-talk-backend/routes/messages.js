@@ -10,14 +10,23 @@ router.get('/:uid/:id', async (req, res) => {
     const uid = req.params.uid
     const id = req.params.id
 
-    const messages = await Message.find({
-      $or: [
-        { $and: [ { 'sender': uid }, { 'receiver': id } ] },
-        { $and: [ { 'receiver': uid }, { 'sender': id } ] }
-      ]
-    }).sort({ 'content.date': -1 })
+    const messages = await Message.aggregate([
+      {
+        $match: {
+          $or: [
+            { $and: [ { 'sender': uid }, { 'receiver': id } ] },
+            { $and: [ { 'receiver': uid }, { 'sender': id } ] }
+          ]
+        }
+      },
+      {
+        $sort: {
+          'content.date': -1
+        }
+      }
+    ])
 
-    console.log(messages)
+    console.log('Messages', messages)
     res.json(messages)
   } catch (err) {
     res.status(500).json({ message: err.message })
@@ -86,6 +95,37 @@ router.post('/', async (req, res) => {
     res.status(201).json(newMessage)
   } catch (error) {
     res.status(400).json({ message: error.message })
+  }
+})
+
+router.patch('/:id', async (req, res) => {
+  try {
+    console.log('So yeah request is happening')
+    const message = await Message.findById(req.params.id)
+    if (message === null) {
+      return res.status(404).json({ message: 'Cannot find message' })
+    }
+    if (req.body.content !== null) {
+      message.content.text = req.body.content.text
+    }
+    console.log('Message', message)
+    const updatedMessage = await message.save()
+    res.json(updatedMessage)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const message = await Message.findById(req.params.id)
+    if (message === null) {
+      return res.status(404).json({ message: 'Cannot find message' })
+    }
+    await message.remove()
+    res.json({ message: 'Deleted message' })
+  } catch (error) {
+    res.status(500).json({ message: error.message })
   }
 })
 

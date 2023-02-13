@@ -104,10 +104,7 @@ const ProfilePage = () => {
                   type="text"
                   id="profile-picture"
                   defaultValue={user.picture}
-                  onChange={(event) => {
-                    console.log('URL', event.target.value)
-                    setUpdatedPictureUrl(event.target.value)
-                  }}
+                  onChange={(event) => setUpdatedPictureUrl(event.target.value)}
                 />
               </div>
               <div className="account-update-option-pair">
