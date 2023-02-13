@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import ChatSpan from './components/ChatSpan'
 import Message from './components/Message'
+import Alert from './components/Alert'
 import { UserContext } from '../providers/UserProvider'
 import LogoutIcon from '../assets/icons/logout.png'
 import AddContactIcon from '../assets/icons/add-contact.png'
@@ -18,12 +19,23 @@ const hour = (mongoDate) => {
 const MainPage = () => {
   const { user, setUser } = useContext(UserContext)
 
+  const [users, setUsers] = useState([])
   const [isSearchingUser, setIsSearchingUser] = useState(false)
   const [searchedUser, setSearchedUser] = useState(null)
   const [userChats, setUserChats] = useState()
   const [chat, setChat] = useState()
   const [chatReceiver, setChatReceiver] = useState()
   const [message, setMessage] = useState()
+  const [alert, setAlert] = useState(false)
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/users`)
+      const data = await response.json()
+      setUsers(data)
+    }
+    getUsers()
+  }, [])
 
   useEffect(() => {
     const getUserChats = async () => {
@@ -70,6 +82,22 @@ const MainPage = () => {
         logged: false,
       })
     })
+    await fetch(`${import.meta.env.VITE_API_URL}/users/${foundUser._id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: null,
+        firstname: null,
+        lastname: null,
+        password: null,
+        contacts: [...foundUser.contacts, user._id],
+        picture: null,
+        logged: false,
+      })
+    })
+    setAlert(true)
   }
 
   const selectAndLoadChat = async (userId) => {
@@ -143,6 +171,7 @@ const MainPage = () => {
                 {chat.map((message) => (
                   <Message
                     key={message._id}
+                    messageId={message._id}
                     message={message.content.text}
                     hour={hour(message.content.date)}
                     isSender={message.sender === user._id}
@@ -192,6 +221,7 @@ const MainPage = () => {
           </div>
         </div>
       ) : null}
+      {(alert) ? <Alert message="Contact has been added" setTrigger={setAlert} /> : null}
     </div>
   )
 }
