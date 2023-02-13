@@ -159,8 +159,8 @@ const MainPage = () => {
               onClick={() => selectAndLoadChat(userChat._id)}
               profilePicture={userChat.picture}
               receptor={`${userChat.firstname} ${userChat.lastname}`}
-              lastMessage={`${userChat.message.content?.text || 'Start a new chat!'}`}
-              lastMessageTime={`${userChat.message.content && hour(userChat.message.content?.date) || 'Now'}`}
+              lastMessage={`${userChat.lastMessage.content?.text || 'Start a new chat!'}`}
+              lastMessageTime={`${userChat.lastMessage.content && hour(userChat.lastMessage.content?.date) || 'Now'}`}
             />
           ))}
         </aside>

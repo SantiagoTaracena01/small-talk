@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 
 const messageSchema = new mongoose.Schema({
-  sender: String,
-  receiver: String,
+  sender: mongoose.Types.ObjectId,
+  receiver: mongoose.Types.ObjectId,
   content: {
     text: String,
     date: Date,
