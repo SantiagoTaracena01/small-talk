@@ -48,12 +48,37 @@ router.get('/:uid', async (req, res) => {
     
     const userIds = users.map(user => user._id)
 
+    // const lastMessage = await Message.find({
+    //   $or: [
+    //     { $and: [ { 'sender': uid }, { 'receiver': { $in: userIds } } ] },
+    //     { $and: [ { 'receiver': uid }, { 'sender': { $in: userIds } } ] }
+    //   ]
+    // }).sort({ 'content.date': -1 }).limit(1)
+    
+    // console.log('Ids de contactos')
+    // console.log(userIds)
+
+    const lastMessageIds = []
+    for (const userId of userIds) {
+      const message = await Message.find({
+        $or: [
+          { sender: uid, receiver: userId },
+          { sender: userId, receiver: uid }
+        ]
+      }).sort({ "content.date": -1 }).limit(1);
+      
+      lastMessageIds.push(message[0]._id);
+    } 
+
+    console.log('Ultimos Ids mensajes de cada contacto')
+    console.log(lastMessageIds)
+
     const lastMessage = await Message.find({
-      $or: [
-        { $and: [ { 'sender': uid }, { 'receiver': { $in: userIds } } ] },
-        { $and: [ { 'receiver': uid }, { 'sender': { $in: userIds } } ] }
-      ]
-    }).sort({ 'content.date': -1 }).limit(1)
+      '_id': { $in:  lastMessageIds} 
+      })
+    
+    console.log('Ultimos mensajes de cada contacto')
+    console.log(lastMessage)
 
     const lastMessageResponse = users.map(user => {
       const message = lastMessage.find(m => m.sender === user._id.toString() || m.receiver === user._id.toString());
@@ -66,6 +91,8 @@ router.get('/:uid', async (req, res) => {
         message: message || {}
       }
     })
+    // console.log('Mensajes')
+    // console.log(lastMessageResponse)
     res.json(lastMessageResponse)
   } catch (error) {
     res.status(500).json({ message: error.message })
