@@ -67,35 +67,19 @@ const MainPage = () => {
 
   const handleAddContact = async () => {
     const foundUser = users.find((user) => (user.username === searchedUser))
-    await fetch(`${import.meta.env.VITE_API_URL}/users/${user._id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/users/add-contact/${user._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        username: null,
-        firstname: null,
-        lastname: null,
-        password: null,
-        contacts: [...user.contacts, foundUser._id],
-        picture: null,
-        logged: false,
-      })
+      body: JSON.stringify({ contactId: foundUser._id })
     })
-    await fetch(`${import.meta.env.VITE_API_URL}/users/${foundUser._id}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/users/add-contact/${foundUser._id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({
-        username: null,
-        firstname: null,
-        lastname: null,
-        password: null,
-        contacts: [...foundUser.contacts, user._id],
-        picture: null,
-        logged: false,
-      })
+      body: JSON.stringify({ contactId: user._id })
     })
     setAlert(true)
   }
@@ -153,14 +137,14 @@ const MainPage = () => {
       </header>
       <section>
         <aside>
-          {userChats && userChats.map((userChat) => (
+          {userChats && userChats.length && userChats.map((userChat) => (
             <ChatSpan
               key={userChat._id}
               onClick={() => selectAndLoadChat(userChat._id)}
               profilePicture={userChat.picture}
               receptor={`${userChat.firstname} ${userChat.lastname}`}
               lastMessage={`${userChat.lastMessage.content?.text || 'Start a new chat!'}`}
-              lastMessageTime={`${userChat.lastMessage.content && hour(userChat.lastMessage.content?.date) || 'Now'}`}
+              lastMessageTime={`${hour(userChat.lastMessage.content?.date) || 'Now'}`}
             />
           ))}
         </aside>
@@ -186,7 +170,7 @@ const MainPage = () => {
                 />
                 <div className="chat-text-container">
                   <h1>Welcome to Small Talk!</h1>
-                  <h2>Start a new chat by clicking on a contact</h2>
+                  <h2>Start a new chat by clicking on a contact or adding one</h2>
                 </div>
               </div>
             )}

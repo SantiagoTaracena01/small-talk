@@ -2,7 +2,6 @@ require('dotenv').config()
 
 const express = require('express')
 const mongoose = require('mongoose')
-const { ObjectId } = mongoose.Types
 const router = express.Router()
 const Message = require('../models/message')
 const User = require('../models/user')
@@ -101,7 +100,29 @@ router.get('/:uid', async (req, res) => {
       {
         $addFields: {
           lastMessage: {
-            $arrayElemAt: ['$sortedMessages', -1]
+            $switch: {
+              branches: [
+                {
+                  case: {
+                    $eq: [
+                      {
+                        $size: '$sortedMessages'
+                      },
+                      0
+                    ]
+                  },
+                  then: {
+                    content: {
+                      text: 'No messages yet',
+                      date: new Date()
+                    }
+                  }
+                }
+              ],
+              default: {
+                $arrayElemAt: ['$sortedMessages', -1]
+              }
+            }
           }
         }
       },
@@ -149,7 +170,6 @@ router.patch('/:id', async (req, res) => {
     if (req.body.content !== null) {
       message.content.text = req.body.content.text
     }
-    console.log('Message', message)
     const updatedMessage = await message.save()
     res.json(updatedMessage)
   } catch (error) {

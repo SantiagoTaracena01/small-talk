@@ -68,6 +68,21 @@ router.patch('/:id', async (req, res) => {
   }
 })
 
+router.patch('/add-contact/:id', async (req, res) => {
+  try {
+    const updatedUser = await User.findOneAndUpdate({
+      _id: req.params.id,
+    }, {
+      $push: {
+        contacts: req.body.contactId
+      }
+    })
+    res.json(updatedUser)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+})
+
 router.delete('/:id', async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id)
