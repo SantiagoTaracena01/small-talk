@@ -5,6 +5,7 @@ import MainPage from './routes/MainPage'
 import LoginPage from './routes/LoginPage'
 import SignUpPage from './routes/SignUpPage'
 import ProfilePage from './routes/ProfilePage'
+import ChartPage from './routes/ChartPage'
 
 const App = () => (
   <Routes>
@@ -13,6 +14,7 @@ const App = () => (
     <Route path="/login" element={<LoginPage />} />
     <Route path="/sign-up" element={<SignUpPage />} />
     <Route path="/profile" element={<ProfilePage />} />
+    <Route path="/charts" element={<ChartPage />} />
   </Routes>
 )
 

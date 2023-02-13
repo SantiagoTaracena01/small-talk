@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { UserContext } from '../providers/UserProvider'
 import Alert from './components/Alert'
 import LeftArrowIcon from '../assets/icons/left-arrow.png'
+import ChartIcon from '../assets/icons/charts.png'
 import '../styles/profile-page.sass'
 
 const ProfilePage = () => {
@@ -79,6 +80,12 @@ const ProfilePage = () => {
         <img
           className="left-arrow-icon"
           src={LeftArrowIcon}
+        />
+      </Link>
+      <Link to="/charts">
+        <img
+          className="ChartIcon"
+          src={ChartIcon}
         />
       </Link>
       <div className="profile-card">
