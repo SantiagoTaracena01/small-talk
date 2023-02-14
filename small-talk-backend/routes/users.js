@@ -92,4 +92,53 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+router.post('/generate', async (req, res) => {
+  try {
+    const response = await User.bulkWrite([
+      {
+        insertOne: {
+          document: {
+            username: 'user1',
+            firstname: 'user1',
+            lastname: 'user1',
+            password: 'user1',
+            contacts: [],
+            picture: 'https://i.imgur.com/8Q1Z4Zm.jpg',
+            logged: false,
+          }
+        }
+      },
+      {
+        insertOne: {
+          document: {
+            username: 'user2',
+            firstname: 'user2',
+            lastname: 'user2',
+            password: 'user2',
+            contacts: [],
+            picture: 'https://i.imgur.com/8Q1Z4Zm.jpg',
+            logged: false,
+          }
+        }
+      },
+      {
+        insertOne: {
+          document: {
+            username: 'user3',
+            firstname: 'user3',
+            lastname: 'user3',
+            password: 'user3',
+            contacts: [],
+            picture: 'https://i.imgur.com/8Q1Z4Zm.jpg',
+            logged: false,
+          }
+        }
+      }
+    ])
+    res.json(response)
+  } catch (error) {
+    res.status(500).json({ message: error.message })
+  }
+})
+
 module.exports = router

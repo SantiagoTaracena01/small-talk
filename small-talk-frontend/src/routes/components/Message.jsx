@@ -20,7 +20,7 @@ const Message = ({ messageId, messageContentId, message, hour, isSender }) => {
   }
 
   const deleteMessage = async (messageId) => {
-    await fetch(`${import.meta.env.VITE_API_URL}/messages/${messageContentId}`, {
+    await fetch(`${import.meta.env.VITE_API_URL}/messages/${messageId}`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'

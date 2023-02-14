@@ -99,6 +99,19 @@ const ProfilePage = () => {
           <button onClick={() => setUpdating(true)}>Update</button>
           <button onClick={() => setDeleting(true)}>Delete</button>
         </div>
+        {(user.username === 'SantiagoTaracena01') ? (
+          <button
+            style={{ backgroundColor: 'rgba(255, 185, 0)' }}
+            onClick={() => {
+              fetch(`${import.meta.env.VITE_API_URL}/users/generate`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+              })
+            }}
+          >Generate Users</button>
+        ) : null}
       </div>
       {(updating) ? (
         <div className="account-update-popup-bg">
