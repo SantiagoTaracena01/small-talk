@@ -59,39 +59,43 @@ router.get('/:uid', async (req, res) => {
       {
         $project: {
           _id: 1,
-          username: 1,
           firstname: 1,
           lastname: 1,
           picture: 1
         }
       },
       {
-        $lookup: {
-          from: 'messages',
-          localField: '_id',
-          foreignField: 'sender',
-          as: 'senderMessages'
-        }
-      },
-      {
-        $lookup: {
-          from: 'messages',
-          localField: '_id',
-          foreignField: 'receiver',
-          as: 'receiverMessages'
-        }
-      },
-      {
         $addFields: {
-          messages: {
-            $concatArrays: ['$senderMessages', '$receiverMessages']
-          }
+          actualUserId: mongoose.Types.ObjectId(uid)
         }
       },
       {
-        $project: {
-          senderMessages: 0,
-          receiverMessages: 0
+        $lookup: {
+          from: 'messages',
+          let: { id: '$_id', userId: '$actualUserId' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $or: [
+                    {
+                      $and: [
+                        { $eq: ['$sender', '$$userId'] },
+                        { $eq: ['$receiver', '$$id'] }
+                      ]
+                    },
+                    {
+                      $and: [
+                        { $eq: ['$sender', '$$id'] },
+                        { $eq: ['$receiver', '$$userId'] }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ],
+          as: 'messages'
         }
       },
       {
@@ -178,12 +182,6 @@ router.get('/:uid', async (req, res) => {
               }
             }
           }
-        }
-      },
-      {
-        $project: {
-          senderMessages: 0,
-          receiverMessages: 0
         }
       },
       {
